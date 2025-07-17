@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Joshua Sánchez</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Fondo desenfocado */
+    .fondo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: url("imajen\ fodnp.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: blur(6px);
+      z-index: -1;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: #f0f6fc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      text-align: center;
+      position: relative;
+      min-height: 100vh;
+      z-index: 1;
+    }
+
+    .profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid #f2ff0099;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 15px #eeff0099;
+      background: #0d1117;
+      cursor: pointer;
+    }
+
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin: 1rem 0 0.5rem;
+    }
+
+    p {
+      color: #8b949e;
+      margin-bottom: 2rem;
+    }
+
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .social-button {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 10px #00000055;
+      border: 2px solid transparent;
+    }
+
+    .social-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #ffffff55;
+    }
+
+    .instagram {
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    }
+
+    .tiktok {
+      background: linear-gradient(135deg, #000000, #25f4ee, #ff0050);
+    }
+
+    .youtube {
+      background: linear-gradient(135deg, #ff0000, #cc0000);
+    }
+
+    .facebook {
+      background: linear-gradient(135deg, #3b5998, #1877f2);
+    }
+
+    .icon {
+      width: 36px;
+      height: 36px;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #8b949e;
+    }
+
+    /* Modal QR */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.75);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .modal-content {
+      background: #000000;
+      padding: 20px;
+      border-radius: 10px;
+      position: relative;
+      text-align: center;
+    }
+
+    .modal-content img {
+      width: 250px;
+      height: 250px;
+    }
+
+    .close {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      font-size: 1.5rem;
+      color: #ffffff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="fondo"></div>
+
+  <!-- Imagen que activa QR -->
+  <div class="profile-pic" onclick="mostrarQR()">
+    <img src="Imagen de WhatsApp 2025-07-17 a las 12.13.12_b6e22b25.jpg" alt="Tu foto de perfil" />
+  </div>
+
+  <h1>Joshua Sánchez</h1>
+  <p>Sígueme en mis redes sociales:</p>
+
+  <div class="social-links">
+    <a class="social-button instagram" href="https://www.instagram.com/3041_joshua/" target="_blank">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram" />
+      Joshua Sánchez
+    </a>
+    <a class="social-button tiktok" href="https://www.tiktok.com/@3041_joshua" target="_blank">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok" />
+      Joshua Sánchez
+    </a>
+    <a class="social-button youtube" href="https://www.youtube.com/@3041_joshua" target="_blank">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" />
+      Joshua Sánchez
+    </a>
+    <a class="social-button facebook" href="https://www.facebook.com/profile.php?id=100072261832475" target="_blank">
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png" alt="Facebook" />
+      Joshua Sánchez
+    </a>
+  </div>
+
+  <footer>
+    © 2025 Joshua Sánchez — Todos los derechos reservados
+  </footer>
+
+  <!-- MODAL QR -->
+  <div class="modal" id="modalQR" onclick="cerrarQR(event)">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarQR(event)">&times;</span>
+      <h2>Escanea y comparte</h2>
+      <img id="qr-img" src="" alt="QR Code">
+      <p>Joshua Sánchez</p>
+    </div>
+  </div>
+
+  <script>
+    function mostrarQR() {
+      const url = window.location.href; // URL actual de la página
+      const qrImg = document.getElementById('qr-img');
+      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(url)}&size=250x250`;
+      document.getElementById('modalQR').style.display = 'flex';
+    }
+
+    function cerrarQR(e) {
+      if (e.target.classList.contains('modal') || e.target.classList.contains('close')) {
+        document.getElementById('modalQR').style.display = 'none';
+      }
+    }
+  </script>
+
+</body>
+</html>
